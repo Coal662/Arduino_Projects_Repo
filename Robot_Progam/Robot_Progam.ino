@@ -1,7 +1,7 @@
 #include <IRremote.h>
 #include <IRremoteInt.h>
-// remote chanle needs to be on SAT code 0160
-int RECV_PIN = 19; // AKA A5 analog pin
+// remote channel needs to be on SAT code 0160
+int RECV_PIN = 19;          // AKA A5 analog pin
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
@@ -19,9 +19,9 @@ pinMode(9, OUTPUT);
 pinMode(10, OUTPUT);
 pinMode(7, INPUT_PULLUP);
 pinMode(8, INPUT_PULLUP);
-pinMode(A4, OUTPUT);
+pinMode(A4, OUTPUT);        // A4 is used as a ground for the IR recever
 Serial.begin(9600);
-irrecv.enableIRIn();// start the receiver
+irrecv.enableIRIn();        // start the receiver
 delay(1500);
 }
 
@@ -30,15 +30,13 @@ void loop() {
 //exit(0);
 }
 
-//this is the maze program
-void maze() {
+void maze() {               // this is the maze program
   forwards();
   delay(400);
 }
 
-// this is the program for the infered sensor
-void infered() {
-  analogWrite(A4, 0);
+void infered() {            // this is the program for the infered sensor
+  analogWrite(A4, 0);       // sets A4 to ground for the IR recever
   delayTime = 300;
  if(irrecv.decode(&results)){
   Serial.print("protocal: ");
@@ -46,65 +44,55 @@ void infered() {
   Serial.print("Use this code in sketch 0x");
   Serial.println(results.value,HEX);
   switch (results.value) {
-    //forwards
-    case 0x87CDD0EF:
+    case 0x87CDD0EF:        // forwards
      forwards();
      break;
-    //backwards
-    case 0x153F90A7:
+    case 0x153F90A7:        // backwards
      backwards();
      break;
-     //45 left
-    case 0xA519853B:
+    case 0xA519853B:        // 45 left
      left();
      delay(120);
      noMove();
      break;
-     //45 right
-    case 0x42DD49:
+    case 0x42DD49:          // 45 right
      right();
      delay(120);
      noMove();
      break;
-     // stop moving
-    case 0x5CDD8FBD:
+    case 0x5CDD8FBD:        // stop moving
      noMove();
      break;
-     //forwards right
-    case 0x37788763:
+    case 0x37788763:        // forwards right
      right();
      delay(120);
      noMove();
      forwards();
      break;
-     //forwards left
-    case 0x92DF9279:
+    case 0x92DF9279:        // forwards left
      left();
      delay(120);
      noMove();
      forwards();
      break;
-     //left turn
-    case 0x31BB009F:
+    case 0x31BB009F:        // left turn
      left();
      delay(400);
      noMove();
      forwards();
      break;
-     //left right
-    case 0x6872B60C:
+    case 0x6872B60C:        // left right
      right();
      delay(400);
      noMove();
      forwards();
      break;
-     //does a 180 turn
-    case 0x6E56F924:
+    case 0x6E56F924:        // does a 180 turn
      right();
      delay(410);
      noMove();
      break;
-    case 0xFAE193FF:
+    case 0xFAE193FF:        // opperates the Maze program
      maze();
      noMove();
      break;
@@ -112,15 +100,13 @@ void infered() {
 
     break;
   }
-  irrecv.resume();// recive the next value
+  irrecv.resume();    // recive the next value
  }
  delay(100);
 }
 
-// this is the cockroach program
-void cockroach() {
-  //set to 200 for a 90 degree turn defalut [ random(50,400) ]
-  turnDelay = random(50,400);
+void cockroach() {                // this is the cockroach program
+  turnDelay = random(50,400);     // set to 200 for a 90 degree turn defalut [ random(50,400) ]
   senseRight = digitalRead(7);
   senseLeft = digitalRead(8);
   Serial.print(senseRight);
@@ -144,8 +130,7 @@ if(senseLeft == false){
 
 }
 
-// this does a zig zag pattern
-void zigzag() {
+void zigzag() {       // this does a zig zag pattern
 delayTime = 1100;
 noMoveDelay = 200;
 left();delay(100);
@@ -168,8 +153,7 @@ left();delay(100);
 noMove();delay(noMoveDelay);
 }
 
-// does a perfict square
-void square() {
+void square() {         // does a perfect square
 delayTime = 1200;
 forwards();delay(delayTime);
 noMove();delay(200);
