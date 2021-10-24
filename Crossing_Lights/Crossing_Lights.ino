@@ -1,7 +1,6 @@
 bool crossing = true;
 int crossingTime = 5000;
 
-
 void setup()
 {
   pinMode(2, OUTPUT); //crossing1 green
@@ -11,7 +10,7 @@ void setup()
   pinMode(6, OUTPUT); //crossing2 yellow
   pinMode(7, OUTPUT); //crossing2 red
   pinMode(8, OUTPUT); //pedestrian green
-  pinMode(9, OUTPUT); //pedestrian red
+  pinMode(9, OUTPUT); //pedestrian red */
   pinMode(10, INPUT_PULLUP); //button input
 }
 

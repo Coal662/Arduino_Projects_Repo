@@ -17,7 +17,6 @@ float distance;
 void setup() {
   lcd.begin();
   lcd.backlight();
-
   lcd.setCursor(0,0);
 pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
 pinMode(echoPin, INPUT); // Sets the echoPin as an Input
